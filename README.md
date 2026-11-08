@@ -20,7 +20,6 @@
 10. [其他功能](#10-其他功能)
 11. [常見問題](#11-常見問題)
 12. [資料來源與更新頻率](#12-資料來源與更新頻率)
-13. [給站長：部署與維護](#13-給站長部署與維護)
 
 ---
 
@@ -231,36 +230,6 @@ A：名單存在瀏覽器裡，換瀏覽器、換裝置或清除資料就會消�
 **更新頻率（原專案預設）：**加密貨幣每 4 小時掃描一次；台股於平日收盤後掃描一次。實際頻率取決於站長的排程設定，頁首會顯示該市場的「更新時間」。
 
 ---
-
-## 13. 給站長：部署與維護
-
-這個資料夾是**純靜態網站**（`index.html`＋`css/`＋`js/`＋`img/`＋`data/`），不需要建置。
-
-```
-├── index.html
-├── css/  js/  img/
-├── data/        ← 掃描結果（scan.json、bars/、triangles.json、tw/ …）
-├── _headers     ← Cloudflare 標頭與快取
-└── wrangler.toml
-```
-
-**本機預覽**
-```bash
-python -m http.server 8000     # 開啟 http://localhost:8000
-```
-
-**上傳 GitHub**（檔案很多，請用指令或 GitHub Desktop，不要用網頁拖曳）
-```bash
-git init -b main && git add . && git commit -m "init"
-git remote add origin https://github.com/你的帳號/head-shoulders-site.git
-git push -u origin main
-```
-
-**部署 Cloudflare Pages**
-Workers & Pages → Create → Pages → Connect to Git → 選此 repo：
-Framework preset 選 `None`，Build command 與 Build output directory 都留空。
-
-**讓資料持續更新：**`data/` 是掃描程式產生的。要自動更新，需另外執行掃描專案（Python＋GitHub Actions），並把結果推送到這個 repo；否則網站只會顯示目前這份快照。
 
 **Discord 登入（選用）：**`js/app.js` 約第 1701 行的 `YOUR_SUBDOMAIN` 是 Discord 觀察名單 Worker 的網址佔位，沒有自己的 Worker 請保持原樣。
 
